@@ -1,3 +1,2 @@
 #!/bin/bash
-
-file -name "*.js" -type f -delete 
+file -name "*.js" -type f -delete
