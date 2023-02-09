@@ -1,0 +1,8 @@
+#!/bin/bash
+
+git add .
+
+git commit -m 'Alx Leo-s commits'
+
+git push
+
