@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#Create the list to access the last created file
+Latest_File=$(ls -t|head -1)
+
+#make the latest file executable
+chmod 751 "$Latest_File"
