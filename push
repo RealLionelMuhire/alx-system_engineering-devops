@@ -1,20 +1,21 @@
 #!/bin/bash
 
-# Add all update and changes to the repo
+# add all changes
 git add .
 
-# Commit message
-git commit -m 'Alx Leo-s commits'
+# commit changes
+git commit -m "Commit message"
 
-# Push changes with personal access token
+# configure git to store credentials
+git config --global credential.helper store
 
+# push changes with username and personal access token
+git push https://github.com/your_username/your_repository.git
+
+# auto-fill git credentials
 echo "Enter git username:"
-
-read RealLionelMuhire
-
+read username
 echo "Enter personal access token:"
-
-read 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
-
-git push https://$RealLionelMuhire:${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}@github.com/RealLionelMuhire/alx-system_engineering-devops.git master
+read token
+echo "https://$username:$token" | git credential-store store
 
