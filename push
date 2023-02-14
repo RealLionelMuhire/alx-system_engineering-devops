@@ -1,8 +1,15 @@
 #!/bin/bash
 
+# Add all update and changes to the repo
 git add .
 
+# Commit message
 git commit -m 'Alx Leo-s commits'
 
-git push
+# Push changes with personal access token
+echo "Enter personal access token"
+
+read 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
+
+git push https://RealLionelMuhire:${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}@github.com/RealLionelMuhire/alx-system_engineering-devops.git master
 
