@@ -4,7 +4,7 @@
 git add .
 
 # commit changes
-git commit -m "Commit message"
+git commit -m "Leos commits"
 
 # configure git to store credentials
 git config --global credential.helper store
