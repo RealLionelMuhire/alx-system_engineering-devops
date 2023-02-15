@@ -2,10 +2,7 @@
 
 git add .
 
-git commit -m 'Alx Leo s commits,Shell init files, expansion, variables, and alias excercises '
+git commit -m 'Alx Leo s commits,Shell redirections excercises '
 
-# Set personal access token as environment variable
-export GIT_AUTH_TOKEN=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
+git push
 
-# Push changes to remote repository
-git push origin main
