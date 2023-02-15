@@ -1,21 +1,8 @@
 #!/bin/bash
 
-# add all changes
 git add .
 
-# commit changes
-git commit -m "Leos commits"
+git commit -m 'Alx Leo s commits,Shell redirections excercises '
 
-# configure git to store credentials
-git config --global credential.helper store
-
-# push changes with username and personal access token
-git push https://github.com/your_username/your_repository.git
-
-# auto-fill git credentials
-echo "Enter git username:"
-read username
-echo "Enter personal access token:"
-read token
-echo "https://$username:$token" | git credential-store store
+git push
 
