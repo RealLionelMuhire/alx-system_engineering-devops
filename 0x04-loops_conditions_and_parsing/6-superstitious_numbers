@@ -3,6 +3,7 @@
 i=1
 while ((i <= 20))
 do
+	echo "$i"
 	case $i in
 		4)
 			echo "bad luck from China"
@@ -14,7 +15,6 @@ do
 			echo "bad luck from Italy"
 			;;
 		*)
-			echo "$i"
 			;;
 	esac
 	((i++))
