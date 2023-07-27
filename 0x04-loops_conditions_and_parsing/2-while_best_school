@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#printing with while 10x Best school
+while((i < 10))
+do
+	echo "Best School"
+	((i++))
+done
