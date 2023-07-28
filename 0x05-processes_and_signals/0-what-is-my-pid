@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#This is script pid of this Learning bash
+this_script_pid=$$
+echo "$this_script_pid"
