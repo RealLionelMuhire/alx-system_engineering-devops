@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#like the similar exercises to the previous
+ps -C bash -F
+
