@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#printing all running PID
+ps aux
+
