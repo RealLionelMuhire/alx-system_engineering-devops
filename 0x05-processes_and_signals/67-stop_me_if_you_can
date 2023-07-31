@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Read the process ID from the file
+# Stop the "4-to_infinity_and_beyond" process using SIGTERM
+pkill -f ./7-highlander
