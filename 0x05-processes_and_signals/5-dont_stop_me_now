@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Read the process ID from the file
+pid=$(pgrep -f ./4-to_infinity_and_beyond)
+
+# Stop the "4-to_infinity_and_beyond" process using SIGTERM
+kill "$pid"
