@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Read the process ID from the file
+# Stop the "7-highlander" process using SIGTERM
+kill -KILL "$(pgrep -f ./7-highlander)"
