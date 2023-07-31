@@ -2,7 +2,7 @@
 #creating an adv 
 mkdir -p var/run
 touch var/run/myscript.pid
-echo "$(pgrep -f ./100-process_and_pid_file)" > /var/run/myscript.pid
+echo $$ > /var/run/myscript.pid
 
 trap "echo 'Y U no love me?!'" SIGINT
 trap "echo 'I hate the kill command' & rm -f /var/run/myscript.pid & exit" SIGTERM
