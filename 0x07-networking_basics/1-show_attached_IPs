@@ -1,0 +1,9 @@
+#!/bin/bash
+# Get the list of network interfaces and their IPv4 addresses
+interfaces_with_ipv4=$(ip -4 addr | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+
+# Loop through each IPv4 address and display it
+for ipv4 in $interfaces_with_ipv4; do
+    echo "$ipv4"
+done
+
