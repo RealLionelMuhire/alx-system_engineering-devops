@@ -1,3 +1,5 @@
+#creating a file with connet of ILovePuppet in tmp folder
+
 file {'/tmp/school':
 ensure => file,
 path => '/tmp/school',
