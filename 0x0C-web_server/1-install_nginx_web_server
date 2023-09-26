@@ -3,9 +3,6 @@
 sudo apt-get update
 sudo apt-get install -y nginx
 
-# Reload Nginx configuration
-sudo /etc/init.d/nginx reload
-
 # Create an HTML file with "Hello World!" content
 echo "Hello World!" > /var/www/html/index.html
 
