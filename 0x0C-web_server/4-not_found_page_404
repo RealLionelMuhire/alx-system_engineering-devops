@@ -12,9 +12,9 @@ sudo apt-get -y install nginx
 sudo service nginx start
 
 echo "Hello World!" | sudo tee /usr/share/nginx/html/index.html
-sudo sed -i "30i $ADD301_REDIRECT" /etc/nginx/sites-available/default #add at line 30
+ufw allow 'Nginx HTTP'
+sed -i '/^\tserver_name _.*/a \\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
-echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
-sudo sed -i "s@$PATTERN@$ADD404_NOTFOUND@" /etc/nginx/sites-available/default #uncomment and replace
-
-sudo service nginx restart
+sed -i '/^http.*/a \\terror_page 404 /error404.html;' /etc/nginx/nginx.conf
+echo "Ceci n'est pas une page" | tee /var/www/html/error404.html
+service nginx restart
