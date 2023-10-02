@@ -1,11 +1,29 @@
-#!/usr/bin/env bash
-# Updating package information and then installing Nginx with yes
-sudo apt-get update
-sudo apt-get install -y nginx
+i#!/usr/bin/env bash
+# This script sets up a brand new ubuntu machine to install nginx
+#	and configure it to return an extra header
+#
+# Step 1: updating the apt package list
+apt-get update
 
-# Create an HTML file with "Hello World!" content
-echo "Hello World!" > /var/www/html/index.html
+# step 2: installing the nginx
+sudo apt-get install nginx -y
 
-# starting nginx
-service nginx start
+# step3: allow connections connecting to port 80
+ufw allow 80/http
 
+#step 4: configure nginx to return a header telling hostname of the server
+host=$(hostname)
+sed -i "/^http.*/a \\\tadd_header X-Served-By $host;" /etc/nginx/nginx.conf
+
+#step 5: Configure nginx to print 'Hello World at index'
+echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+
+#step 6: Configure nginx for a redirect at redirect_me
+sed -i '/^\tserver_name _.*/a \\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+
+#step 7: configure nginx to use a custom 404 error message
+sed -i '/^http.*/a \\terror_page 404 /error404.html;' /etc/nginx/nginx.conf
+echo "Ceci n'est pas une page" > /var/www/html/error404.html
+
+#step 8: restart nginx server
+service nginx restart
