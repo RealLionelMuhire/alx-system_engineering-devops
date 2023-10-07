@@ -1,4 +1,2 @@
-This a project of of system eng & and devops in
-alx full stack crash course
-We will strive through. May God keep me hard working and not to fail
-
+#THE REPO CONTAINS SOME EXERCISES
+#AND APPLICATIONS IN SYSTEM ENGINEERING DEVOOPS OF ALX CLASS
