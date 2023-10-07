@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# This script contains a function to query database and print some information
+
+query_dns () {
+    if [ "$1" ]
+    then
+        if [ -z "$2" ]
+	then
+	    subdoms=("www" "lb-01" "web-01" "web-02")
+		for item in "${subdoms[@]}";
+		do
+		    res=$(dig "$item"."$1" +noall +answer|awk '{print $4, $NF}')
+		    list_res=($res)
+		    echo "The subdomain $item is a ${list_res[-2]} record and points to ${list_res[-1]}"
+		done
+	elif [ "$2" ]
+	then
+		res=$(dig "$2"."$1" +noall +answer|awk '{print $4, $NF}')
+		list_res=($res)
+		echo "The subdomain $2 is a ${list_res[-2]} record and points to ${list_res[-1]}"
+	fi
+	return 0
+    else
+	return 1
+    fi
+}
+
+query_dns "$1" "$2"
