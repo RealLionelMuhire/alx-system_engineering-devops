@@ -6,12 +6,12 @@ apt-get -y install haproxy
 # Define the HAProxy configuration
 server_config=\
 "
-frontend sylvieshimwauwase_frontend
+frontend lionelmuhire_frontend
     bind *:80
     mode http
     default_backend sylvieshimwauwase_backend
 
-backend sylvieshimwauwase_backend
+backend lionelmuhire_backend
     balance roundrobin
     mode http
     server 76023-web-01 3.84.161.50:80 check
