@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
-# This script contains a function to query database and print some information
+# scripts that displays information about subdomains
 
-query_dns () {
-    if [ "$1" ]
-    then
-        if [ -z "$2" ]
-	then
-	    subdoms=("www" "lb-01" "web-01" "web-02")
-		for item in "${subdoms[@]}";
-		do
-		    res=$(dig "$item"."$1" +noall +answer|awk '{print $4, $NF}')
-		    list_res=($res)
-		    echo "The subdomain $item is a ${list_res[-2]} record and points to ${list_res[-1]}"
-		done
-	elif [ "$2" ]
-	then
-		res=$(dig "$2"."$1" +noall +answer|awk '{print $4, $NF}')
-		list_res=($res)
-		echo "The subdomain $2 is a ${list_res[-2]} record and points to ${list_res[-1]}"
-	fi
-	return 0
+domain_info() {
+    local domain="$1"
+    local subdomain="$2"
+    local line
+    line=$(dig +short "$subdomain.$domain")
+    if [ -z "$line" ]; then
+        echo "The subdomain $subdomain does not have an associated IP address."
     else
-	return 1
+        echo "The subdomain $subdomain is a A record and points to $line"
     fi
 }
 
-query_dns "$1" "$2"
+if [ "$#" -eq 1 ]; then
+    domain="$1"
+    domain_info "$domain" "www"
+    domain_info "$domain" "lb-01"
+    domain_info "$domain" "web-01"
+    domain_info "$domain" "web-02"
+elif [ "$#" -eq 2 ]; then
+    domain="$1"
+    subdomain="$2"
+    domain_info "$domain" "$subdomain"
+else
+    echo "Usage: $0 <domain> [subdomain]"
+fi
