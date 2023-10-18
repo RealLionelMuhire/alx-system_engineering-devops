@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Script to 
+arg="$1"
+c_date=$(date +'%d-%m-%Y')
+mysqldump -u root -p"$arg" tyrell_corp > backup.sql
+
+tar -czvf c_date.tar.gz backup.sql
+
