@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Configuring ufw firewall on all servers, except incoming trafic from 22 80 443
+
+sudo ufw status
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw enable
+sudo ufw status verbose
