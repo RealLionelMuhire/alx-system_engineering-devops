@@ -4,33 +4,38 @@
 Python script that exports data in the JSON format.
 """
 
-import requests
+from requests import get
+from sys import argv
 import json
-import sys
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python3 script.py <employee_id>")
-        sys.exit(1)
+    response = get('https://jsonplaceholder.typicode.com/todos/')
+    data = response.json()
 
-    emp_id = int(sys.argv[1])
+    row = []
+    response2 = get('https://jsonplaceholder.typicode.com/users')
+    data2 = response2.json()
 
-    user_response = requests.get(f'https://jsonplaceholder.typicode.com/users/{emp_id}')
-    if user_response.status_code != 200:
-        print(f"Error: Employee with ID {emp_id} not found")
-        sys.exit(1)
+    for i in data2:
+        if i['id'] == int(argv[1]):
+            u_name = i['username']
+            id_no = i['id']
 
-    user_data = user_response.json()
-    username = user_data['username']
+    row = []
 
-    todos_response = requests.get(f'https://jsonplaceholder.typicode.com/todos?userId={emp_id}')
-    todos_data = todos_response.json()
+    for i in data:
 
-    user_info = {
-        emp_id: [{"task": task['title'], "completed": task['completed'], "username": username} for task in todos_data]
-    }
+        new_dict = {}
 
-    json_file_name = f"{emp_id}.json"
+        if i['userId'] == int(argv[1]):
+            new_dict['username'] = u_name
+            new_dict['task'] = i['title']
+            new_dict['completed'] = i['completed']
+            row.append(new_dict)
 
-    with open(json_file_name, 'w') as json_file:
-        json.dump(user_info, json_file, indent=4)
+    final_dict = {}
+    final_dict[id_no] = row
+    json_obj = json.dumps(final_dict)
+
+    with open(argv[1] + ".json",  "w") as f:
+        f.write(json_obj)
