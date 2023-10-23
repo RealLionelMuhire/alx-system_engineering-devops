@@ -1,11 +1,14 @@
 #!/usr/bin/python3
 
 """
-This script uses a REST API to retrieve information about an employee's TODO list progress.
+This script uses a REST API to retrieve information about an
+employee's TODO list progress.
 """
+
 
 import requests
 import sys
+
 
 def get_emp_todo_list_progress(emp_id):
     """
@@ -17,6 +20,7 @@ def get_emp_todo_list_progress(emp_id):
     Returns:
         None
     """
+
     base_url = "https://jsonplaceholder.typicode.com"
     user_url = "{}/users/{}".format(base_url, emp_id)
     todos_url = "{}/todos?userId={}".format(base_url, emp_id)
@@ -30,17 +34,20 @@ def get_emp_todo_list_progress(emp_id):
         todos_response.raise_for_status()
         todos_data = todos_response.json()
 
-        completed_tasks = [task for task in todos_data if task.get("completed")]
+        completed_tasks = [task for task in todos_data if
+                           task.get("completed")]
         total_tasks = len(todos_data)
         done_tasks = len(completed_tasks)
 
-        print("Employee {} is done with tasks({}/{}):".format(user_data['name'], done_tasks, total_tasks))
+        print("Employee {} is done with tasks({}/{}):"
+              .format(user_data['name'], done_tasks, total_tasks))
         for task in completed_tasks:
             print("\t{}".format(task['title']))
 
     except requests.exceptions.RequestException as e:
         print("Error: {}".format(e))
         sys.exit(1)
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -54,4 +61,3 @@ if __name__ == "__main__":
         get_emp_todo_list_progress(emp_id)
     except ValueError:
         print("Please provide a valid integer as the employee ID.")
-
