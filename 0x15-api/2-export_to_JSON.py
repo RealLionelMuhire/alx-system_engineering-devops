@@ -1,46 +1,36 @@
 #!/usr/bin/python3
 
 """
-Python script that, using a REST API, for a given employee ID,
-returns information about his/her TODO list progress.
+Python script that exports data in the JSON format.
 """
 
-from requests import get
-from sys import argv
+import requests
 import json
+import sys
 
-if __name__ == "__main":
-    response = get('https://jsonplaceholder.typicode.com/todos/')
-    data = response.json()
-    completed = 0
-    total = 0
-    tasks = []
-    response2 = get('https://jsonplaceholder.typicode.com/users')
-    data2 = response2.json()
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python3 script.py <employee_id>")
+        sys.exit(1)
 
-    for i in data2:
-        if i.get('id') == int(argv[1]):
-            employee_id = i.get('id')
-            employee_name = i.get('name')
+    emp_id = int(sys.argv[1])
 
-    user_tasks = []
+    user_response = requests.get(f'https://jsonplaceholder.typicode.com/users/{emp_id}')
+    if user_response.status_code != 200:
+        print(f"Error: Employee with ID {emp_id} not found")
+        sys.exit(1)
 
-    for i in data:
-        if i.get('userId') == int(argv[1]):
-            total += 1
+    user_data = user_response.json()
+    username = user_data['username']
 
-            task_info = {
-                "task": i.get('title'),
-                "completed": i.get('completed'),
-                "username": employee_name
-            }
+    todos_response = requests.get(f'https://jsonplaceholder.typicode.com/todos?userId={emp_id}')
+    todos_data = todos_response.json()
 
-            user_tasks.append(task_info)
+    user_info = {
+        emp_id: [{"task": task['title'], "completed": task['completed'], "username": username} for task in todos_data]
+    }
 
-    user_data = {str(employee_id): user_tasks}
-    json_output = json.dumps(user_data, indent=2)
-
-    json_file_name = "{}.json".format(employee_id)
+    json_file_name = f"{emp_id}.json"
 
     with open(json_file_name, 'w') as json_file:
-        json_file.write(json_output)
+        json.dump(user_info, json_file, indent=4)
