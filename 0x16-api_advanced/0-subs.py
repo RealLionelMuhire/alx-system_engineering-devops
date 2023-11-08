@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+"""printing subs"""
 
 import requests
 
@@ -20,7 +21,7 @@ def number_of_subscribers(subreddit):
         return 0
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     import sys
     if len(sys.argv) < 2:
         print("Please pass an argument for the subreddit to search.")
