@@ -3,9 +3,10 @@
 
 import requests
 
+
 def top_ten(subreddit_name):
     """top ten printer"""
-    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit_name)
+    url = "https://www.reddit.com/r/{subreddit_name}/hot.json?limit=10"
 
     headers = {'User-Agent': 'YourAppName/1.0'}
 
@@ -26,6 +27,7 @@ def top_ten(subreddit_name):
                 print("API error.")
     except requests.exceptions.RequestExecption as e:
         print("An error occurred: {}".format(e))
+
 
 if __name__ == "__main__":
     import sys
