@@ -1,12 +1,14 @@
 #!/usr/bin/python3
-"""printing ton 10 subs"""
-
+"""
+1-main
+"""
 import requests
+import sys
 
 
 def top_ten(subreddit_name):
-    """top ten printer"""
-    url = "https://www.reddit.com/r/{subreddit_name}/hot.json?limit=10"
+    """Prints the titles of the top 10 posts in a subreddit."""
+    url = f"https://www.reddit.com/r/{subreddit_name}/hot.json?limit=10"
 
     headers = {'User-Agent': 'YourAppName/1.0'}
 
@@ -19,18 +21,17 @@ def top_ten(subreddit_name):
                 posts = data['data']['children']
                 for post in posts:
                     print(post['data']['title'])
-                else:
-                    print("No post found.")
-            elif response.status_code == 404:
-                print("None")
             else:
-                print("API error.")
-    except requests.exceptions.RequestExecption as e:
-        print("An error occurred: {}".format(e))
+                print("No posts found.")
+        elif response.status_code == 404:
+            print("None")
+        else:
+            print("API error.")
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
 
 
-if __name__ == "__main__":
-    import sys
+if __name__ == '__main__':
     if len(sys.argv) < 2:
         print("Please pass an argument for the subreddit to search.")
     else:
